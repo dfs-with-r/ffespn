@@ -1,0 +1,26 @@
+Package: ffespn
+Title: Get ESPN fantasy football data
+Version: 0.0.1
+Authors@R: 
+    person(given = "Robert",
+           family = "Zamora",
+           role = c("aut", "cre"),
+           email = "zamora.rr@gmail.com")
+Description: Get ESPN fantasy football data.
+License: GPL-3 + file LICENSE
+Depends: 
+    R (>= 2.10)
+Imports:
+    dplyr,
+    httr,
+    jsonlite,
+    purrr,
+    tibble,
+    tidyr
+Suggests: 
+    testthat (>= 2.1.0)
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1

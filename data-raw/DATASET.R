@@ -1,0 +1,40 @@
+## code to prepare `DATASET` dataset goes here
+
+team_ids <- tibble::tribble(
+  ~id,~name,
+  22L, "ARI",
+  1L, "ATL",
+  33L, "BAL",
+  2L, "BUF",
+  29L, "CAR",
+  3L, "CHI",
+  4L, "CIN",
+  5L, "CLE",
+  6L, "DAL",
+  7L, "DEN",
+  8L, "DET",
+  9L, "GB",
+  34L, "HOU",
+  11L, "IND",
+  30L, "JAX",
+  12L, "KC",
+  24L, "LAC",
+  14L, "LA",
+  15L, "MIA",
+  16L, "MIN",
+  17L, "NE",
+  18L, "NO",
+  19L, "NYG",
+  20L, "NYJ",
+  13L, "OAK",
+  21L, "PHI",
+  23L, "PIT",
+  26L, "SEA",
+  25L, "SF",
+  27L, "TB",
+  10L, "TEN",
+  28L, "WAS",
+  0, "FA"
+)
+
+usethis::use_data(team_ids, internal = TRUE, overwrite = TRUE)

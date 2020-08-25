@@ -1,0 +1,42 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ffespn
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/ffespn)](https://CRAN.R-project.org/package=ffespn)
+<!-- badges: end -->
+
+The goal of ffespn is to get ESPN fantasy football projections. 
+
+## Installation
+
+You can install the development version of ffespn from github with:
+
+``` r
+remotes::install_github("dfs-with-r/ffespn")
+```
+
+## Example
+
+This is a basic example which shows you how to get projections for week 0 (the preseason).
+
+```{r example}
+library(ffespn)
+
+df <- ffespn_projections(2020, 0, "DAL")
+df
+```
