@@ -54,7 +54,7 @@ stat_id_to_name <- function(id) {
     id == 95 ~ "def_ints",
     id == 96 ~ "def_fmbl_recover",
     id == 99 ~ "def_sacks",
-    id == 105 ~ "df_tds",
+    id == 105 ~ "def_tds",
     # def_tds = ? 91, 92, 105, 122
     id == 120 ~ "def_pts_against",
     id == 127 ~ "def_yds_against",
