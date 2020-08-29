@@ -29,23 +29,22 @@ This is a basic example which shows you how to get projections for week
 ``` r
 library(ffespn)
 
-df <- ffespn_projections(2020, 0, "DAL")
+df <- ffespn_projections(2020, 0, "QB")
 df
-#> # A tibble: 23 x 19
+#> # A tibble: 123 x 16
 #>    id    full_name team  default_position active draft_ranks_by_… droppable
 #>    <chr> <chr>     <chr> <chr>            <lgl>  <list>           <lgl>    
-#>  1 2991… Blake Ja… DAL   TE               TRUE   <tibble [2 × 6]> TRUE     
-#>  2 14012 Andy Dal… DAL   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  3 4036… Michael … DAL   WR               TRUE   <tibble [2 × 6]> TRUE     
-#>  4 4036… Cedrick … DAL   WR               TRUE   <tibble [2 × 6]> TRUE     
-#>  5 4038… Darius A… DAL   RB               TRUE   <tibble [2 × 6]> TRUE     
-#>  6 3051… Ezekiel … DAL   RB               TRUE   <tibble [2 × 6]> FALSE    
-#>  7 4241… CeeDee L… DAL   WR               TRUE   <tibble [2 × 6]> TRUE     
-#>  8 2576… Devin Sm… DAL   WR               TRUE   <tibble [2 × 6]> TRUE     
-#>  9 2586… Tevin Jo… DAL   WR               TRUE   <tibble [2 × 6]> TRUE     
-#> 10 3117… Dalton S… DAL   TE               TRUE   <tibble [2 × 6]> TRUE     
-#> # … with 13 more rows, and 12 more variables: eligible_slots <list>,
-#> #   first_name <chr>, injured <lgl>, injury_status <chr>, jersey <chr>,
-#> #   last_name <chr>, last_news_date <dttm>, ownership <list>, rankings <list>,
-#> #   season_outlook <chr>, stats <list>, ratings <list>
+#>  1 3087… Nick Fit… FA    QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  2 5526  Eli Mann… NYG   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  3 5529  Philip R… IND   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  4 5536  Ben Roet… PIT   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  5 3042… Logan Wo… TEN   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  6 3917… Kyler Mu… ARI   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  7 15837 Mike Gle… JAX   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  8 5615  Matt Sch… ATL   QB               TRUE   <tibble [2 × 6]> TRUE     
+#>  9 3120… Easton S… LAC   QB               TRUE   <tibble [2 × 6]> TRUE     
+#> 10 15864 Geno Smi… SEA   QB               TRUE   <tibble [2 × 6]> TRUE     
+#> # … with 113 more rows, and 9 more variables: eligible_slots <list>,
+#> #   first_name <chr>, injured <lgl>, jersey <chr>, last_name <chr>,
+#> #   ownership <list>, season_outlook <chr>, stats <list>, ratings <list>
 ```

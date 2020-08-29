@@ -74,6 +74,19 @@ pos_id_to_name <- function(x) {
   )
 }
 
+slot_name_to_id <- function(x) {
+  # QB: 0, RB: 2, WR: 4, TE: 6, DST: 16, K: 17
+  dplyr::case_when(
+    x == "QB" ~ 0L,
+    x == "RB" ~ 2L,
+    x == "WR" ~ 4L,
+    x == "TE" ~ 6L,
+    x == "DST" ~ 16L,
+    x == "K" ~ 17L,
+    TRUE ~ NA_integer_
+  )
+}
+
 camel_to_snake <- function(x) {
   tolower(gsub("(?<!^)(?=[A-Z])", "_", x, perl = TRUE))
 }

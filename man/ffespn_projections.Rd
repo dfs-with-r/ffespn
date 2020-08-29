@@ -4,14 +4,15 @@
 \alias{ffespn_projections}
 \title{Projections}
 \usage{
-ffespn_projections(season, week, team)
+ffespn_projections(season, week, pos = c("QB", "RB", "WR", "TE", "K",
+  "DST"))
 }
 \arguments{
 \item{season}{integer year}
 
 \item{week}{integer week (0 - 17)}
 
-\item{team}{character team abbreviation}
+\item{pos}{character position}
 }
 \description{
 Projections

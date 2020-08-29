@@ -7,24 +7,25 @@
 #' Projections
 #' @param season integer year
 #' @param week integer week (0 - 17)
-#' @param team character team abbreviation
+#' @param pos character position
 #'
 #' @export
-ffespn_projections <- function(season, week, team) {
+ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K", "DST")) {
   # validate input
-  stopifnot(is.numeric(week), is.numeric(season), is.character(team))
-  stopifnot(is_scalar(week), is_scalar(season), is_scalar(team))
+  pos <- match.arg(pos)
+  stopifnot(is.numeric(week), is.numeric(season), is.character(pos))
+  stopifnot(is_scalar(week), is_scalar(season), is_scalar(pos))
   stopifnot(week >= 0L, week <= 17L)
-  stopifnot(team %in% team_ids$name)
+  #stopifnot(is.null(team) || team %in% team_ids$name)
 
   # convert input
   week <- as.integer(week)
   season <- as.integer(season)
-  team <- team_name_to_id(team)
+  #team <- team_name_to_id(team)
+  pos <- slot_name_to_id(pos)
 
   # build path
   path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season)
-  #path <- "leagues/{league_id}"
 
   # build query
   if (week > 0) {
@@ -37,7 +38,8 @@ ffespn_projections <- function(season, week, team) {
   # team 6 is DALLAS
   x_fantasy_filter <- list(
     players = list(
-      filterProTeamIds = list(value = team),
+      filterSlotIds = list(value = pos),
+      #filterProTeamIds = if (is.null(team)) NULL else list(value = team),
       filterStatsForExternalIds = list(value = season),
       filterStatsForSourceIds = list(value = 1),
       #limit = jsonlite::unbox(50)
