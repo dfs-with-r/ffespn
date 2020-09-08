@@ -10,7 +10,7 @@
 #' @param pos character position
 #'
 #' @export
-ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K", "DST")) {
+ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K", "DST", "DT", "DE", "LB", "CB", "S", "DB")) {
   # validate input
   pos <- match.arg(pos)
   stopifnot(is.numeric(week), is.numeric(season), is.character(pos))
@@ -60,6 +60,10 @@ ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K"
 
   # GET (with no headers it returns all teams?)
   x <- ffespn_api(path, query, headers)
+
+  if (identical(length(x$players), 0L)) {
+    stop("results are empty. no players found", call. = FALSE)
+  }
 
   # parse json
   tidy_projections(x)

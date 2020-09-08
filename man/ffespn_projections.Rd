@@ -5,7 +5,7 @@
 \title{Projections}
 \usage{
 ffespn_projections(season, week, pos = c("QB", "RB", "WR", "TE", "K",
-  "DST"))
+  "DST", "DT", "DE", "LB", "CB", "S", "DB"))
 }
 \arguments{
 \item{season}{integer year}

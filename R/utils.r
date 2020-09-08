@@ -119,6 +119,12 @@ slot_name_to_id <- function(x) {
     x == "TE" ~ 6L,
     x == "DST" ~ 16L,
     x == "K" ~ 17L,
+    x == "DT" ~ 8L,
+    x == "DE" ~ 9L,
+    x == "LB" ~ 10L,
+    x == "CB" ~ 11L,
+    x == "S" ~ 12L,
+    x == "DB" ~ 13L,
     TRUE ~ NA_integer_
   )
 }
