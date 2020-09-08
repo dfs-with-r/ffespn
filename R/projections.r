@@ -100,15 +100,18 @@ tidy_projections <- function(x) {
     player$injuryStatus <- purrr::simplify(tidyr::replace_na(player$injuryStatus, NA_character_))
   }
 
+  if ("jersey" %in% names(player)) {
+    player$jersey <- purrr::simplify(tidyr::replace_na(player$jersey, NA_character_))
+  }
+
   player$defaultPosition <- pos_id_to_name(player$defaultPositionId)
   player$defaultPositionId <- NULL
-
-  player$jersey <- purrr::simplify(tidyr::replace_na(player$jersey, NA_character_))
+  player$seasonOutlook <- dplyr::if_else(nchar(player$seasonOutlook) == 0, NA_character_, player$seasonOutlook)
   player$stats <- purrr::map(player$stats, tidy_projection_stats)
   player$eligibleSlots <- purrr::simplify_all(player$eligibleSlots)
+  player$eligibleSlots <- purrr::map(player$eligibleSlots, slot_id_to_name)
 
   player <- tibble::as_tibble(player)
-
 
   # parse player ownership
   ownership <- lapply(player$ownership, tidyr::replace_na, NA_real_)
@@ -134,6 +137,25 @@ tidy_projections <- function(x) {
 
   # clean column names
   colnames(x) <- camel_to_snake(colnames(x))
+  x <- dplyr::select(
+    x,
+    "id",
+    "player" = "full_name",
+    "team",
+    "position" = "default_position",
+    "is_active" = "active",
+    "is_droppable" = "droppable",
+    "is_injured" = "injured",
+    "slots" = "eligible_slots",
+    "draft_ranks" = "draft_ranks_by_rank_type",
+    "ownership",
+    "ratings",
+    "notes" = "season_outlook",
+    "stats"
+  )
+
+  # unnest the stats (projections)
+  x <- tidyr::unnest(x, "stats")
 
   # return data frame
   x

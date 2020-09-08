@@ -37,6 +37,6 @@ This is a basic example which shows you how to get projections for week 0 (the p
 ```{r example}
 library(ffespn)
 
-df <- ffespn_projections(2020, 0, "QB")
-df
+qb <- ffespn_projections(2020, 0, "QB")
+qb
 ```

@@ -29,22 +29,24 @@ This is a basic example which shows you how to get projections for week
 ``` r
 library(ffespn)
 
-df <- ffespn_projections(2020, 0, "QB")
-df
-#> # A tibble: 123 x 16
-#>    id    full_name team  default_position active draft_ranks_by_… droppable
-#>    <chr> <chr>     <chr> <chr>            <lgl>  <list>           <lgl>    
-#>  1 3087… Nick Fit… FA    QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  2 5526  Eli Mann… NYG   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  3 5529  Philip R… IND   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  4 5536  Ben Roet… PIT   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  5 3042… Logan Wo… TEN   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  6 3917… Kyler Mu… ARI   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  7 15837 Mike Gle… JAX   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  8 5615  Matt Sch… ATL   QB               TRUE   <tibble [2 × 6]> TRUE     
-#>  9 3120… Easton S… LAC   QB               TRUE   <tibble [2 × 6]> TRUE     
-#> 10 15864 Geno Smi… SEA   QB               TRUE   <tibble [2 × 6]> TRUE     
-#> # … with 113 more rows, and 9 more variables: eligible_slots <list>,
-#> #   first_name <chr>, injured <lgl>, jersey <chr>, last_name <chr>,
-#> #   ownership <list>, season_outlook <chr>, stats <list>, ratings <list>
+qb <- ffespn_projections(2020, 0, "QB")
+qb
+#> # A tibble: 67 x 24
+#>    id    player team  position is_active is_droppable is_injured slots
+#>    <chr> <chr>  <chr> <chr>    <lgl>     <lgl>        <lgl>      <lis>
+#>  1 5529  Phili… IND   QB       TRUE      TRUE         FALSE      <chr…
+#>  2 5536  Ben R… PIT   QB       TRUE      TRUE         FALSE      <chr…
+#>  3 3042… Logan… TEN   QB       TRUE      TRUE         FALSE      <chr…
+#>  4 3917… Kyler… ARI   QB       TRUE      TRUE         FALSE      <chr…
+#>  5 5615  Matt … ATL   QB       TRUE      TRUE         FALSE      <chr…
+#>  6 15864 Geno … SEA   QB       TRUE      TRUE         FALSE      <chr…
+#>  7 3042… Ryan … CIN   QB       TRUE      TRUE         FALSE      <chr…
+#>  8 3892… Jarre… NE    QB       TRUE      TRUE         FALSE      <chr…
+#>  9 15948 Matt … BUF   QB       TRUE      TRUE         FALSE      <chr…
+#> 10 13987 Blain… TB    QB       TRUE      TRUE         FALSE      <chr…
+#> # … with 57 more rows, and 16 more variables: draft_ranks <list>,
+#> #   ownership <list>, ratings <list>, notes <chr>, pass_att <dbl>,
+#> #   pass_cmp <dbl>, pass_yds <dbl>, pass_tds <dbl>, pass_2pt <dbl>,
+#> #   pass_int <dbl>, rush_att <dbl>, rush_yds <dbl>, rush_tds <dbl>,
+#> #   rush_2pt <dbl>, sacked <dbl>, fumbles <dbl>
 ```
