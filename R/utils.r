@@ -86,6 +86,9 @@ stat_id_to_name <- function(id) {
     id == 104 ~ "def_int_ret_tds",
     id == 105 ~ "def_tds",
     id == 106 ~ "def_fumbles_forced",
+    id == 107 ~ "def_tackles_assisted", # tackles assisted
+    id == 109 ~ "def_tackles_total", # total tackles
+    id == 113 ~ "def_passes_defended", # passes defended
     id == 120 ~ "def_pts_against",
     id == 121 ~ "def_pts_against_18_20",
     id == 122 ~ "def_pts_against_21_27",
@@ -93,7 +96,7 @@ stat_id_to_name <- function(id) {
     id == 124 ~ "def_pts_against_35_45",
     id == 125 ~ "def_pts_against_46_plus",
     id == 127 ~ "def_yds_against",
-    TRUE ~ paste0("unknown_", id)
+    TRUE ~ paste0("stat_", id)
   )
 }
 
@@ -104,8 +107,11 @@ pos_id_to_name <- function(x) {
     x == 3 ~ "WR",
     x == 4 ~ "TE",
     x == 5 ~ "K",
-    x == 9 ~ "FB", # actually its fullback FB
-    x == 16 ~ "DST",
+    x == 9 ~ "DT",
+    x == 10 ~ "DE",
+    x == 11 ~ "LB",
+    x == 12 ~ "CB",
+    x == 13 ~ "S",
     TRUE ~ paste0("unknown_", x)
   )
 }
@@ -122,9 +128,8 @@ slot_name_to_id <- function(x) {
     x == "DT" ~ 8L,
     x == "DE" ~ 9L,
     x == "LB" ~ 10L,
-    x == "CB" ~ 11L,
-    x == "S" ~ 12L,
-    x == "DB" ~ 13L,
+    x == "CB" ~ 12L,
+    x == "S" ~ 13L,
     TRUE ~ NA_integer_
   )
 }
@@ -150,18 +155,15 @@ slot_id_to_name <- function(x) {
     x == 8 ~ "DT",
     x == 9 ~ "DE",
     x == 10 ~ "LB",
-    x == 11 ~ "CB",
-    x == 12 ~ "S",
-    x == 13 ~ "DB",
-    x == 14 ~ "DUTIL", # defense utility
-    x == 15 ~ "ER", # edge rusher
+    x == 11 ~ "DL",
+    x == 12 ~ "CB",
+    x == 13 ~ "S",
+    x == 14 ~ "DB",
     x == 16 ~ "DST",
     x == 17 ~ "K",
-    x == 20 ~ "QB/RB/WR/TE/K", # offensive utilyFB, K, QB, RB, TE, WR
-    #x == 21 ~ "QB/RB/WR/TE/K",
+    #xx == 20 ~ "QB/RB/WR/TE/K", # offensive utilyFB, K, QB, RB, TE, WR
     x == 23 ~ "RB/WR/TE",
-    #x == 25 ~ "QB/RB/WR/TE/K",
-
+    x == 24 ~ "EDR", # edge rusher
     TRUE ~ paste0("unknown_", x)
   )
 }
