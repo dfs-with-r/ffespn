@@ -7,25 +7,24 @@
 #' Projections
 #' @param season integer year
 #' @param week integer week (0 - 17)
-#' @param pos character position
+#' @param pos character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...
 #'
 #' @export
-ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K", "DST", "DT", "DE", "LB", "CB", "S", "DB")) {
+ffespn_projections <- function(season, week, pos = slot_names) {
   # validate input
   pos <- match.arg(pos)
   stopifnot(is.numeric(week), is.numeric(season), is.character(pos))
   stopifnot(is_scalar(week), is_scalar(season), is_scalar(pos))
   stopifnot(week >= 0L, week <= 17L)
-  #stopifnot(is.null(team) || team %in% team_ids$name)
 
   # convert input
   week <- as.integer(week)
   season <- as.integer(season)
-  #team <- team_name_to_id(team)
   pos <- slot_name_to_id(pos)
 
   # build path
-  path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season)
+  #path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season)
+  path <- sprintf("seasons/%s/segments/0/leagues/61760077", season)
 
   # build query
   if (week > 0) {
@@ -39,7 +38,6 @@ ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K"
   x_fantasy_filter <- list(
     players = list(
       filterSlotIds = list(value = pos),
-      #filterProTeamIds = if (is.null(team)) NULL else list(value = team),
       filterStatsForExternalIds = list(value = season),
       filterStatsForSourceIds = list(value = 1),
       #limit = jsonlite::unbox(50)
@@ -61,11 +59,13 @@ ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K"
   # GET (with no headers it returns all teams?)
   x <- ffespn_api(path, query, headers)
 
+  # check that data is not empty
   if (identical(length(x$players), 0L)) {
     stop("results are empty. no players found", call. = FALSE)
   }
 
   # parse json
+  #return(x)
   tidy_projections(x)
 }
 
@@ -80,7 +80,10 @@ tidy_projections <- function(x) {
 
   # convert column types
   x$id <- as.character(x$id)
-  x$waiverProcessDate <- as.POSIXct(x$waiverProcessDate/1000, origin = "1970-01-01", tz = "America/New_York")
+
+  if ("waiverProcessDate" %in% names(x)) {
+    x$waiverProcessDate <- as.POSIXct(x$waiverProcessDate/1000, origin = "1970-01-01", tz = "America/New_York")
+  }
 
   # parse rating
   ratings <- purrr::map(x$ratings, tidy_projection_ratings)
@@ -108,9 +111,15 @@ tidy_projections <- function(x) {
     player$jersey <- purrr::simplify(tidyr::replace_na(player$jersey, NA_character_))
   }
 
+  if ("seasonOutlook" %in% names(player)) {
+    if (!is.list(player$seasonOutlook)) {
+      player$seasonOutlook <- dplyr::if_else(nchar(player$seasonOutlook) == 0, NA_character_, player$seasonOutlook)
+    }
+  }
+
   player$defaultPosition <- pos_id_to_name(player$defaultPositionId)
   player$defaultPositionId <- NULL
-  player$seasonOutlook <- dplyr::if_else(nchar(player$seasonOutlook) == 0, NA_character_, player$seasonOutlook)
+
   player$stats <- purrr::map(player$stats, tidy_projection_stats)
   player$eligibleSlots <- purrr::simplify_all(player$eligibleSlots)
   player$eligibleSlots <- purrr::map(player$eligibleSlots, slot_id_to_name)
@@ -166,6 +175,8 @@ tidy_projections <- function(x) {
 }
 
 tidy_projection_ratings <- function(ratings) {
+  if (is.null(ratings)) return(tibble::tibble())
+
   ratings <- purrr::simplify_all(purrr::transpose(ratings))
   df <- as_tibble_snake(ratings)
   df$week <- as.integer(names(ratings[[1]]))
@@ -178,7 +189,13 @@ tidy_projection_stats <- function(stats) {
   stats <- stats[[1]]$stats
   names(stats) <- stat_id_to_name(names(stats))
   df <- as_tibble_snake(stats)
-  dplyr::select(df, -dplyr::starts_with("unknown_"))
+
+  # order columns to put unknown stats at the end?
+  #df <- dplyr::select(df, -dplyr::starts_with("stat_"), dplyr::starts_with("stat_"))
+  df <- dplyr::select(df, -dplyr::starts_with("stat_"))
+
+  # return data frame
+  return(df)
 }
 
 tidy_projection_rankings <- function(x) {

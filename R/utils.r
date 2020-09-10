@@ -86,6 +86,9 @@ stat_id_to_name <- function(id) {
     id == 104 ~ "def_int_ret_tds",
     id == 105 ~ "def_tds",
     id == 106 ~ "def_fumbles_forced",
+    id == 107 ~ "def_tackles_assisted", # tackles assisted
+    id == 109 ~ "def_tackles_total", # total tackles
+    id == 113 ~ "def_passes_defended", # passes defended
     id == 120 ~ "def_pts_against",
     id == 121 ~ "def_pts_against_18_20",
     id == 122 ~ "def_pts_against_21_27",
@@ -93,7 +96,7 @@ stat_id_to_name <- function(id) {
     id == 124 ~ "def_pts_against_35_45",
     id == 125 ~ "def_pts_against_46_plus",
     id == 127 ~ "def_yds_against",
-    TRUE ~ paste0("unknown_", id)
+    TRUE ~ paste0("stat_", id)
   )
 }
 
@@ -104,27 +107,44 @@ pos_id_to_name <- function(x) {
     x == 3 ~ "WR",
     x == 4 ~ "TE",
     x == 5 ~ "K",
-    x == 9 ~ "FB", # actually its fullback FB
-    x == 16 ~ "DST",
+    x == 9 ~ "DT",
+    x == 10 ~ "DE",
+    x == 11 ~ "LB",
+    x == 12 ~ "CB",
+    x == 13 ~ "S",
     TRUE ~ paste0("unknown_", x)
   )
 }
+
+slot_names <- c("QB", "TQB", "RB", "RB/WR", "WR", "WR/TE", "TE", "OP",
+                 "DT", "DE", "LB", "DL", "CB", "S", "DB", "DP", "DST",
+                 "K", "P", "HC", "FLEX", "EDR")
 
 slot_name_to_id <- function(x) {
   # QB: 0, RB: 2, WR: 4, TE: 6, DST: 16, K: 17
   dplyr::case_when(
     x == "QB" ~ 0L,
+    x == "TQB" ~ 1L, # team quarterback
     x == "RB" ~ 2L,
+    x == "RB/WR" ~ 3L,
     x == "WR" ~ 4L,
+    x == "WR/TE" ~ 5L,
     x == "TE" ~ 6L,
-    x == "DST" ~ 16L,
-    x == "K" ~ 17L,
+    x == "OP" ~ 7L, # offensive player
     x == "DT" ~ 8L,
     x == "DE" ~ 9L,
     x == "LB" ~ 10L,
-    x == "CB" ~ 11L,
-    x == "S" ~ 12L,
-    x == "DB" ~ 13L,
+    x == "DL" ~ 11L,
+    x == "CB" ~ 12L,
+    x == "S" ~ 13L,
+    x == "DB" ~ 14L,
+    x == "DP" ~ 15L, # defensive player
+    x == "DST" ~ 16L,
+    x == "K" ~ 17L,
+    x == "P" ~ 18L,
+    x == "HC" ~ 19L, # head coach
+    x == "FLEX" ~ 23L,
+    x == "EDR" ~ 24L,
     TRUE ~ NA_integer_
   )
 }
@@ -146,22 +166,21 @@ slot_id_to_name <- function(x) {
     x == 4 ~ "WR",
     x == 5 ~ "WR/TE",
     x == 6 ~ "TE",
-    x == 7 ~ "QB/RB/WR/TE", # offensive utilty?
+    x == 7 ~ "OP", # offensive player
     x == 8 ~ "DT",
     x == 9 ~ "DE",
     x == 10 ~ "LB",
-    x == 11 ~ "CB",
-    x == 12 ~ "S",
-    x == 13 ~ "DB",
-    x == 14 ~ "DUTIL", # defense utility
-    x == 15 ~ "ER", # edge rusher
+    x == 11 ~ "DL",
+    x == 12 ~ "CB",
+    x == 13 ~ "S",
+    x == 14 ~ "DB",
+    x == 15 ~ "DP", # defensive player
     x == 16 ~ "DST",
     x == 17 ~ "K",
-    x == 20 ~ "QB/RB/WR/TE/K", # offensive utilyFB, K, QB, RB, TE, WR
-    #x == 21 ~ "QB/RB/WR/TE/K",
-    x == 23 ~ "RB/WR/TE",
-    #x == 25 ~ "QB/RB/WR/TE/K",
-
+    x == 18 ~ "P",
+    x == 19 ~ "HC",
+    x == 23 ~ "FLEX",
+    x == 24 ~ "EDR", # edge rusher
     TRUE ~ paste0("unknown_", x)
   )
 }
