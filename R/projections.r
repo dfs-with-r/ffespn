@@ -7,10 +7,10 @@
 #' Projections
 #' @param season integer year
 #' @param week integer week (0 - 17)
-#' @param pos character position
+#' @param pos character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...
 #'
 #' @export
-ffespn_projections <- function(season, week, pos = c("QB", "RB", "WR", "TE", "K", "DST", "DT", "DE", "LB", "CB", "S")) {
+ffespn_projections <- function(season, week, pos = slot_names) {
   # validate input
   pos <- match.arg(pos)
   stopifnot(is.numeric(week), is.numeric(season), is.character(pos))
@@ -111,9 +111,15 @@ tidy_projections <- function(x) {
     player$jersey <- purrr::simplify(tidyr::replace_na(player$jersey, NA_character_))
   }
 
+  if ("seasonOutlook" %in% names(player)) {
+    if (!is.list(player$seasonOutlook)) {
+      player$seasonOutlook <- dplyr::if_else(nchar(player$seasonOutlook) == 0, NA_character_, player$seasonOutlook)
+    }
+  }
+
   player$defaultPosition <- pos_id_to_name(player$defaultPositionId)
   player$defaultPositionId <- NULL
-  player$seasonOutlook <- dplyr::if_else(nchar(player$seasonOutlook) == 0, NA_character_, player$seasonOutlook)
+
   player$stats <- purrr::map(player$stats, tidy_projection_stats)
   player$eligibleSlots <- purrr::simplify_all(player$eligibleSlots)
   player$eligibleSlots <- purrr::map(player$eligibleSlots, slot_id_to_name)
