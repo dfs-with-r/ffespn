@@ -23,23 +23,19 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   pos <- slot_name_to_id(pos)
 
   # build path
-  #path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season)
+  #path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season) # 1 is non-ppr scoring, 3 is espn standard
   path <- sprintf("seasons/%s/segments/0/leagues/61760077", season)
 
   # build query
-  if (week > 0) {
-    query <- list("view" = "kona_player_info", "scoringPeriodId" = week)
-  } else {
-    query <- list("view" = "kona_player_info")
-  }
+  query <- list("view" = "kona_player_info")
 
   # build headers
-  # team 6 is DALLAS
   x_fantasy_filter <- list(
     players = list(
       filterSlotIds = list(value = pos),
-      filterStatsForExternalIds = list(value = season),
+      #filterStatsForExternalIds = list(value = season), # not working  currently. maybe can't specify previous seasons?
       filterStatsForSourceIds = list(value = 1),
+      filterStatsForSplitTypeIds = list(value = c(week)),
       #limit = jsonlite::unbox(50)
       offset = jsonlite::unbox(0)
     )
