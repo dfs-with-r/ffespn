@@ -61,7 +61,6 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   }
 
   # parse json
-  #return(x)
   tidy_projections(x)
 }
 
@@ -124,10 +123,16 @@ tidy_projections <- function(x) {
 
   # parse player ownership
   ownership <- lapply(player$ownership, tidyr::replace_na, NA_real_)
-  ownership <- lapply(ownership, function(x) {
-    x$date <- list_to_dt(x$date)
-    x
-    })
+  ownership <- purrr::map(ownership, function(x) {
+    if (is.list(x)) {
+      x$date <- list_to_dt(x$date)
+      return(x)
+    } else {
+      return(list())
+    }
+
+  })
+
   ownership <- purrr::map(ownership, as_tibble_snake)
   player$ownership <- ownership
 
@@ -182,13 +187,22 @@ tidy_projection_ratings <- function(ratings) {
 
 tidy_projection_stats <- function(stats) {
   if (length(stats) == 0) return(tibble::tibble())
+
+  # parse applied total (fpts)
+  if (!is.list(stats)) print(stats)
+  fpts_proj <- stats[[1]]$appliedTotal
+
+  # parse individual stats
   stats <- stats[[1]]$stats
   names(stats) <- stat_id_to_name(names(stats))
+
+  # put into dataframe
   df <- as_tibble_snake(stats)
+  df$fpts_proj <- fpts_proj
 
   # order columns to put unknown stats at the end?
-  #df <- dplyr::select(df, -dplyr::starts_with("stat_"), dplyr::starts_with("stat_"))
-  df <- dplyr::select(df, -dplyr::starts_with("stat_"))
+  df <- dplyr::select(df, -dplyr::starts_with("stat_"), dplyr::starts_with("stat_"))
+  #df <- dplyr::select(df, -dplyr::starts_with("stat_"))
 
   # return data frame
   return(df)

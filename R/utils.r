@@ -96,6 +96,7 @@ stat_id_to_name <- function(id) {
     id == 124 ~ "def_pts_against_35_45",
     id == 125 ~ "def_pts_against_46_plus",
     id == 127 ~ "def_yds_against",
+    #id == 210 ~ "games"
     TRUE ~ paste0("stat_", id)
   )
 }
@@ -107,6 +108,7 @@ pos_id_to_name <- function(x) {
     x == 3 ~ "WR",
     x == 4 ~ "TE",
     x == 5 ~ "K",
+    x == 7 ~ "P",
     x == 9 ~ "DT",
     x == 10 ~ "DE",
     x == 11 ~ "LB",
