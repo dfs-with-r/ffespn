@@ -30,8 +30,10 @@ stat_id_to_name <- function(id) {
     # passing
     id == 0 ~ "pass_att",
     id == 1 ~ "pass_cmp",
+    id == 2 ~ "pass_inc",
     id == 3 ~ "pass_yds",
     id == 4 ~ "pass_tds",
+    #id == 10 ~ "pass_sacked",
     id == 19 ~ "pass_2pt",
     id == 20 ~ "pass_int",
 
@@ -55,19 +57,19 @@ stat_id_to_name <- function(id) {
     # kicking
     id == 74 ~ "fg_cmp_50",
     id == 75 ~ "fg_att_50",
-    #id == 76 ~ "fg_miss_50",
+    id == 76 ~ "fg_miss_50",
     id == 77 ~ "fg_cmp_40_49",
     id == 78 ~ "fg_att_40_49",
-    # id == 79 ~ "fg_miss_40_49"
+    id == 79 ~ "fg_miss_40_49",
     id == 80 ~ "fg_cmp_1_39",
     id == 81 ~ "fg_att_1_39",
-    #id == 82 ~ "fg_miss_1_39"
+    id == 82 ~ "fg_miss_1_39",
     id == 83 ~ "fg_cmp_tot",
     id == 84 ~ "fg_att_tot",
-    # id == 85 ~ "fg_miss_tot",
+    id == 85 ~ "fg_miss_tot",
     id == 86 ~ "fg_cmp_xp",
     id == 87 ~ "fg_att_xp",
-    # id == 88 ~ "fg_miss_xp"
+    id == 88 ~ "fg_miss_xp",
 
     # defense
     id == 89 ~ "def_pts_against_0",
@@ -75,6 +77,7 @@ stat_id_to_name <- function(id) {
     id == 91 ~ "def_pts_against_7_13",
     id == 92 ~ "def_pts_against_14_17",
     id == 93 ~ "def_block_ret_tds",
+    id == 94 ~ "def_total_ret_tds",
     id == 95 ~ "def_ints",
     id == 96 ~ "def_fumbles_recovered",
     id == 97 ~ "def_blocks",
@@ -87,7 +90,9 @@ stat_id_to_name <- function(id) {
     id == 105 ~ "def_tds",
     id == 106 ~ "def_fumbles_forced",
     id == 107 ~ "def_tackles_assisted", # tackles assisted
+    id == 108 ~ "def_tackles_solo",
     id == 109 ~ "def_tackles_total", # total tackles
+    id == 110 ~ "def_stuffs",
     id == 113 ~ "def_passes_defended", # passes defended
     id == 120 ~ "def_pts_against",
     id == 121 ~ "def_pts_against_18_20",
@@ -96,7 +101,29 @@ stat_id_to_name <- function(id) {
     id == 124 ~ "def_pts_against_35_45",
     id == 125 ~ "def_pts_against_46_plus",
     id == 127 ~ "def_yds_against",
-    #id == 210 ~ "games"
+
+    # punts
+    id == 138 ~ "punts",
+    id == 139 ~ "punts_yds",
+    id == 140 ~ "punts_inside_10",
+    id == 141 ~ "punts_inside_20",
+    id == 142 ~ "punts_blocked",
+    id == 143 ~ "punts_returned",
+    id == 144 ~ "punts_return_yds",
+    id == 145 ~ "punts_touchbacks",
+    id == 146 ~ "punts_fair_catches",
+
+    # punts (need to be verified)
+    id == 148 ~ "punts_44_plus",
+    id == 149 ~ "punts_42_44",
+    id == 150 ~ "punts_40_42",
+    id == 151 ~ "punts_38_40",
+    id == 152 ~ "punts_36_38",
+    id == 153 ~ "punts_34_36",
+    id == 154 ~ "punts_32_34",
+
+    # misc
+    id == 210 ~ "games",
     TRUE ~ paste0("stat_", id)
   )
 }
