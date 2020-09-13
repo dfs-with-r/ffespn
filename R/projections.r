@@ -30,17 +30,21 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   query <- list("view" = "kona_player_info")
 
   # build headers
-  x_fantasy_filter <- list(
-    players = list(
-      filterSlotIds = list(value = pos),
-      #filterStatsForExternalIds = list(value = season), # not working  currently. maybe can't specify previous seasons?
-      filterStatsForSourceIds = list(value = 1),
-      filterStatsForSplitTypeIds = list(value = c(week)),
-      #limit = jsonlite::unbox(50)
-      offset = jsonlite::unbox(0)
-    )
+  players = list(
+    filterSlotIds = list(value = pos),
+    filterStatsForSourceIds = list(value = 1), # 0 = actual, y = projected
+    offset = jsonlite::unbox(0)
   )
 
+  # required different filters for season vs weekly projections
+  if (week == 0) {
+    players$filterStatsForExternalIds = list(value = season)
+  } else {
+    players$filterStatsForSplitTypeIds = list(value = c(week))
+  }
+
+  # combine
+  x_fantasy_filter <- list("players" = players)
   headers <- httr::add_headers(.headers = c(
     "X-Fantasy-Filter" = jsonlite::toJSON(x_fantasy_filter),
     "X-Fantasy-Source" = "kona",

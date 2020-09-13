@@ -34,6 +34,10 @@ stat_id_to_name <- function(id) {
     id == 3 ~ "pass_yds",
     id == 4 ~ "pass_tds",
     #id == 10 ~ "pass_sacked",
+    id == 15 ~ "pass_tds_40_plus_yds",
+    id == 16 ~ "pass_tds_50_plus_yds",
+    id == 17 ~ "pass_yds_300_399",
+    id == 18 ~ "pass_yds_400_plus",
     id == 19 ~ "pass_2pt",
     id == 20 ~ "pass_int",
 
@@ -42,6 +46,10 @@ stat_id_to_name <- function(id) {
     id == 24 ~ "rush_yds",
     id == 25 ~ "rush_tds",
     id == 26 ~ "rush_2pt",
+    id == 35 ~ "rush_td_40_plus_yds",
+    id == 36 ~ "rush_td_50_plus_yds",
+    id == 37 ~ "rush_yds_100_199",
+    id == 38 ~ "rush_yds_200_plus",
 
     # receptions
     id == 42 ~ "rec_yds",
@@ -52,7 +60,8 @@ stat_id_to_name <- function(id) {
 
     # misc
     id == 64 ~ "sacked",
-    id == 72 ~ "fumbles",
+    id == 68 ~ "fumbles",
+    id == 72 ~ "fumbles_lost",
 
     # kicking
     id == 74 ~ "fg_cmp_50",
@@ -141,7 +150,7 @@ pos_id_to_name <- function(x) {
     x == 11 ~ "LB",
     x == 12 ~ "CB",
     x == 13 ~ "S",
-    TRUE ~ paste0("unknown_", x)
+    TRUE ~ paste0("pos_", x)
   )
 }
 
@@ -210,7 +219,7 @@ slot_id_to_name <- function(x) {
     x == 19 ~ "HC",
     x == 23 ~ "FLEX",
     x == 24 ~ "EDR", # edge rusher
-    TRUE ~ paste0("unknown_", x)
+    TRUE ~ paste0("slot_", x)
   )
 }
 
