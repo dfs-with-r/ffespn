@@ -24,6 +24,7 @@ ffespn_projections <- function(season, week, pos = slot_names) {
 
   # build path
   #path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season) # 1 is non-ppr scoring, 3 is espn standard
+  #path <- sprintf("seasons/%s/segments/0/leaguedefaults/3", season)
   path <- sprintf("seasons/%s/segments/0/leagues/61760077", season)
 
   # build query
@@ -40,7 +41,7 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   if (week == 0) {
     players$filterStatsForExternalIds = list(value = season)
   } else {
-    players$filterStatsForSplitTypeIds = list(value = c(week))
+    players$filterStatsForExternalIds = list(value = sprintf("%s%s", season, week))
   }
 
   # combine
