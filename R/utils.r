@@ -92,6 +92,7 @@ stat_id_to_name <- function(id) {
     id == 97 ~ "def_blocks",
     id == 98 ~ "def_safeties",
     id == 99 ~ "def_sacks",
+    id == 100 ~ "def_stuffs",
     id == 101 ~ "special_kick_ret_tds",
     id == 102 ~ "special_punt_ret_tds",
     id == 103 ~ "def_fumble_ret_tds",
@@ -101,7 +102,6 @@ stat_id_to_name <- function(id) {
     id == 107 ~ "def_tackles_assisted", # tackles assisted
     id == 108 ~ "def_tackles_solo",
     id == 109 ~ "def_tackles_total", # total tackles
-    id == 110 ~ "def_stuffs",
     id == 113 ~ "def_passes_defended", # passes defended
     id == 120 ~ "def_pts_against",
     id == 121 ~ "def_pts_against_18_20",
@@ -132,6 +132,13 @@ stat_id_to_name <- function(id) {
     id == 154 ~ "punts_32_34",
 
     # misc
+    id == 155 ~ "team_win",
+    id == 156 ~ "team_loss",
+    id == 158 ~ "team_points_scored",
+    id == 159 ~ "team_points_scored2",
+    id == 160 ~ "team_margin_of_victory",
+    id == 173 ~ "team_margin_of_victory2",
+    id == 174 ~ "team_win2",
     id == 210 ~ "games",
     TRUE ~ paste0("stat_", id)
   )
@@ -150,6 +157,7 @@ pos_id_to_name <- function(x) {
     x == 11 ~ "LB",
     x == 12 ~ "CB",
     x == 13 ~ "S",
+    x == 14 ~ "HC",
     TRUE ~ paste0("pos_", x)
   )
 }
@@ -218,7 +226,8 @@ slot_id_to_name <- function(x) {
     x == 18 ~ "P",
     x == 19 ~ "HC",
     x == 23 ~ "FLEX",
-    x == 24 ~ "EDR", # edge rusher
+    x == 24 ~ "EDR", # edge rusher,
+    x == 25 ~ "Rookie",
     TRUE ~ paste0("slot_", x)
   )
 }
