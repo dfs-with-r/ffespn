@@ -6,7 +6,7 @@
 
 #' Projections
 #' @param season integer year
-#' @param week integer week (0 - 17)
+#' @param week integer week (0 - 18)
 #' @param pos character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...
 #'
 #' @export
@@ -15,7 +15,7 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   pos <- match.arg(pos)
   stopifnot(is.numeric(week), is.numeric(season), is.character(pos))
   stopifnot(is_scalar(week), is_scalar(season), is_scalar(pos))
-  stopifnot(week >= 0L, week <= 17L)
+  stopifnot(week >= 0L, week <= 18L)
 
   # convert input
   week <- as.integer(week)
@@ -25,7 +25,7 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   # build path
   #path <- sprintf("seasons/%s/segments/0/leaguedefaults/1/", season) # 1 is non-ppr scoring, 3 is espn standard
   #path <- sprintf("seasons/%s/segments/0/leaguedefaults/3", season)
-  path <- sprintf("seasons/%s/segments/0/leagues/61760077", season)
+  path <- sprintf("seasons/%s/segments/0/leagues/801008651", season)
 
   # build query
   query <- list("view" = "kona_player_info")
