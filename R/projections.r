@@ -115,6 +115,8 @@ tidy_projections <- function(x) {
     if (!is.list(player$seasonOutlook)) {
       player$seasonOutlook <- dplyr::if_else(nchar(player$seasonOutlook) == 0, NA_character_, player$seasonOutlook)
     }
+  } else {
+    player$seasonOutlook <- NA_character_
   }
 
   player$defaultPosition <- pos_id_to_name(player$defaultPositionId)
