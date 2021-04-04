@@ -33,7 +33,7 @@ ffespn_projections <- function(season, week, pos = slot_names) {
   # build headers
   players = list(
     filterSlotIds = list(value = pos),
-    filterStatsForSourceIds = list(value = 1), # 0 = actual, y = projected
+    filterStatsForSourceIds = list(value = 1), # 0 = actual, 1 = projected
     offset = jsonlite::unbox(0)
   )
 

@@ -158,6 +158,7 @@ pos_id_to_name <- function(x) {
     x == 12 ~ "CB",
     x == 13 ~ "S",
     x == 14 ~ "HC",
+    x == 16 ~ "DST",
     TRUE ~ paste0("pos_", x)
   )
 }
