@@ -103,6 +103,8 @@ stat_id_to_name <- function(id) {
     id == 108 ~ "def_tackles_solo",
     id == 109 ~ "def_tackles_total", # total tackles
     id == 113 ~ "def_passes_defended", # passes defended
+    id == 114 ~ "special_kick_ret_yds",
+    id == 115 ~ "special_punt_ret_yds",
     id == 120 ~ "def_pts_against",
     id == 121 ~ "def_pts_against_18_20",
     id == 122 ~ "def_pts_against_21_27",
