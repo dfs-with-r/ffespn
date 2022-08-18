@@ -34,6 +34,7 @@ ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr"
     path <- sprintf("seasons/%s/segments/0/leaguedefaults/%i", season, scoring_id)
   } else {
     # league_id <- "134971153"
+    league_id <- as.character(league_id)
     path <- sprintf("seasons/%s/segments/0/leagues/%s", season, league_id)
   }
 
@@ -114,11 +115,13 @@ tidy_projections <- function(x) {
   }
 
   if ("injuryStatus" %in% names(player)) {
-    player$injuryStatus <- purrr::simplify(tidyr::replace_na(player$injuryStatus, NA_character_))
+    purrr::simplify(replace_null(player$injuryStatus, NA_character_))
+    #player$injuryStatus <- purrr::simplify(tidyr::replace_na(player$injuryStatus, NA_character_))
   }
 
   if ("jersey" %in% names(player)) {
-    player$jersey <- purrr::simplify(tidyr::replace_na(player$jersey, NA_character_))
+    purrr::simplify(replace_null(player$jersey, NA_character_))
+    #player$jersey <- purrr::simplify(player$jersey, NA_character_)
   }
 
   if ("seasonOutlook" %in% names(player)) {
@@ -139,15 +142,14 @@ tidy_projections <- function(x) {
   player <- tibble::as_tibble(player)
 
   # parse player ownership
-  ownership <- lapply(player$ownership, tidyr::replace_na, NA_real_)
-  ownership <- purrr::map(ownership, function(x) {
+  ownership <- purrr::map(player$ownership, function(x) {
+    x <- replace_null(x, NA_real_)
     if (is.list(x)) {
       x$date <- list_to_dt(x$date)
       return(x)
     } else {
       return(list())
     }
-
   })
 
   ownership <- purrr::map(ownership, as_tibble_snake)
