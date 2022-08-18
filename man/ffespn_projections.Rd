@@ -4,14 +4,21 @@
 \alias{ffespn_projections}
 \title{Projections}
 \usage{
-ffespn_projections(season, week, pos = slot_names)
+ffespn_projections(
+  season,
+  week,
+  pos = slot_names,
+  scoring = c("ppr", "non_ppr")
+)
 }
 \arguments{
 \item{season}{integer year}
 
-\item{week}{integer week (0 - 17)}
+\item{week}{integer week (0 - 18)}
 
 \item{pos}{character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...}
+
+\item{scoring}{scoring type}
 }
 \description{
 Projections
