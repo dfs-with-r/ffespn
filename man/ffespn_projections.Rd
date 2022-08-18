@@ -8,7 +8,8 @@ ffespn_projections(
   season,
   week,
   pos = slot_names,
-  scoring = c("ppr", "non_ppr")
+  scoring = c("ppr", "non_ppr"),
+  league_id = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ ffespn_projections(
 \item{pos}{character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...}
 
 \item{scoring}{scoring type}
+
+\item{league_id}{custom league_id (optional)}
 }
 \description{
 Projections

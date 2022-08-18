@@ -9,9 +9,10 @@
 #' @param week integer week (0 - 18)
 #' @param pos character position. Ex. "QB", "RB", "RB/WR", "DST", "FLEX", "DT", ...
 #' @param scoring scoring type
+#' @param league_id custom league_id (optional)
 #'
 #' @export
-ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr", "non_ppr")) {
+ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr", "non_ppr"), league_id = NULL) {
   # validate input
   pos <- match.arg(pos)
   scoring <- match.arg(scoring)
@@ -28,9 +29,13 @@ ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr"
   # build path
   # 1 is non-ppr scoring, 3 is espn standard
   scoring_id <- switch(scoring, "ppr" = 1, "non_ppr" = 3)
-  path <- sprintf("seasons/%s/segments/0/leaguedefaults/%i", season, scoring_id)
-  #path <- sprintf("seasons/%s/segments/0/leagues/134971153", season
 
+  if (is.null(league_id)) {
+    path <- sprintf("seasons/%s/segments/0/leaguedefaults/%i", season, scoring_id)
+  } else {
+    # league_id <- "134971153"
+    path <- sprintf("seasons/%s/segments/0/leagues/%s", season, league_id)
+  }
 
   # build query
   query <- list("view" = "kona_player_info")

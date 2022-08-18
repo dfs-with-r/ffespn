@@ -37,6 +37,11 @@ This is a basic example which shows you how to get projections for week 0 (the p
 ```{r example}
 library(ffespn)
 
-qb <- ffespn_projections(2020, 0, "QB")
+# use default espn league
+qb <- ffespn_projections(2022, 0, "QB")
 qb
+
+# use custom league
+dt <- ffespn_projections(2022, 0, "DT", league_id = "134971153")
+dt
 ```
