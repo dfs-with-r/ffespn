@@ -9,6 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ffespn)](https://CRAN.R-project.org/package=ffespn)
+[![R-CMD-check](https://github.com/dfs-with-r/ffespn/workflows/R-CMD-check/badge.svg)](https://github.com/dfs-with-r/ffespn/actions)
 <!-- badges: end -->
 
 The goal of ffespn is to get ESPN fantasy football projections.
