@@ -244,3 +244,9 @@ as_tibble_snake <- function(x) {
   colnames(df) <- camel_to_snake(colnames(df))
   df
 }
+
+replace_null <- function(x, replace) {
+  is_missing <- purrr::map_lgl(x, is.null)
+  x[is_missing] <- replace
+  x
+}
