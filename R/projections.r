@@ -97,7 +97,12 @@ tidy_projections <- function(x) {
   }
 
   # parse rating
-  ratings <- purrr::map(x$ratings, tidy_projection_ratings)
+  if ("ratings" %in% names(x)) {
+    ratings <- purrr::map(x$ratings, tidy_projection_ratings)
+  } else {
+    ratings <- NA
+  }
+
 
   # parse player
   player <-  purrr::simplify_all(purrr::transpose(x$player))
