@@ -51,6 +51,7 @@ ffespn_projections <- function(season, week, pos = slot_names, scoring = c("ppr"
   # required different filters for season vs weekly projections
   if (week == 0) {
     players$filterStatsForExternalIds = list(value = season)
+    players$filterStatsForTopScoringPeriodIds = list(value = jsonlite::unbox(2), additionalValue = list( jsonlite::unbox(paste0("10", season)))) # Can get stale date w/o this
   } else {
     players$filterStatsForExternalIds = list(value = sprintf("%s%s", season, week))
   }
